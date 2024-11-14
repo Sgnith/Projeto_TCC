@@ -1,0 +1,122 @@
+<head>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="/js/vaga.js"></script>
+
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container width60">
+             <div class="card-body flex_center flex_column">
+                <form class="fill wrap" action="/empresas/vagas/criarvaga/nova" method="post">
+                    <div class="margin_left3 flex_column width84">
+                        <label for="titulo">Titulo da Vaga:</label>
+                        <input class="campo_curriculo margin_top" type="text" name="titulo" id="titulo">
+                    </div>
+                    {{#if (neq user.tipo 2)}}
+                        <div class="margin_left3 flex_column margin_top width84">
+                            <label for="empresa">Empresa:</label>
+                            <input class="campo_curriculo margin_top" type="text" name="empresa" id="empresa">
+                        </div>
+                    {{/if}}
+                    <div class="margin_left3 flex_column margin_top10">
+                        <label class="margin_bottom10" for="descricao">Descrição da Vaga:</label>
+                        <div id="editor-container" style="height: 200px;"></div>
+                        <input class="campo_curriculo margin_top" type="hidden" name="descricao" id="descricao">
+                    </div>
+                    <div class="margin_left3 flex_column margin_top width40">
+                        <label for="localizacao">Localização:</label>
+                        <input class="campo_curriculo margin_top fill" type="text" name="localizacao" id="localizacao" placeholder="(Cidade - Estado)">
+                    </div>
+                    <div class="flex_column margin_top width37 margin_left3">
+                        <label for="modalidade">Modalidade:</label>
+                        <select class="campo_curriculo margin_top fill" name="modalidade" id="modalidade">
+                            <option value="" disabled selected>Selecione a Modalidade</option>
+                            <option value="1">Presencial</option>
+                            <option value="2">Remoto</option>
+                            <option value="3">Híbrido</option>
+                        </select>
+                    </div>
+                    <div class="margin_left3 flex_column margin_top width40">
+                        <label for="tipo">Tipo</label>
+                        <select class="campo_curriculo margin_top fill" name="tipo" id="tipo">
+                            <option value="" disabled selected>Selecione o Tipo</option>
+                            <option value="1">Estágio</option>
+                            <option value="2">Auxiliar</option>
+                            <option value="3">Assistente</option>
+                            <option value="4">Júnior</option>
+                            <option value="5">Pleno</option>
+                            <option value="6">Sênior</option>
+                            <option value="7">Coordenador</option>
+                            <option value="8">Gerente</option>
+                            <option value="9">Diretor</option>
+                        </select>
+                    </div>
+                    <div class="flex_column margin_top width37 margin_left3">
+                        <label for="carga_horaria">Período:</label>
+                        <select class="campo_curriculo margin_top fill" name="carga_horaria" id="carga_horaria">
+                            <option value="" disabled selected>Selecione o Período</option>
+                            <option value="1">Período Matutino (Manhã)</option>
+                            <option value="2">Período Vespertino (Tarde)</option>
+                            <option value="3">Período Noturno</option>
+                            <option value="4">Período Integral</option>
+                            <option value="5">Horário Flexível</option>
+                        </select>
+                    </div>
+                    <div class="margin_left3 flex_column margin_top width84">
+                        <label for="area">Área:</label>
+                        <select class="campo_curriculo margin_top fill" name="area" id="area">
+                            <option value="1">Administração</option>
+                            <option value="2">Processos Gerenciais</option>
+                            <option value="3">Gestão do Agronegócio</option>
+                            <option value="4">Recursos Humanos</option>
+                            <option value="5">Vendas</option>
+                            <option value="6">Arquitetura e Urbanismo</option>
+                            <option value="7">Engenharia Civil</option>
+                            <option value="8">Engenharia Mecânica</option>
+                            <option value="9">Engenharia Elétrica</option>
+                            <option value="10">Engenharia Química</option>
+                            <option value="11">Engenharia de Produção</option>
+                            <option value="12">Engenharia de Computação</option>
+                            <option value="13">Engenharia de Software</option>
+                            <option value="14">Engenharia Ambiental e Sanitária</option>
+                            <option value="15">Engenharia de Alimentos</option>
+                            <option value="16">Engenharia de Telecomunicações</option>
+                            <option value="17">Engenharia Biomédica</option>
+                            <option value="18">Tecnologia da Informação</option>
+                            <option value="19">Design Gráfico</option>
+                            <option value="20">Enfermagem</option>
+                            <option value="21">Fisioterapia</option>
+                            <option value="22">Psicologia</option>
+                            <option value="23">Pedagogia</option>
+                            <option value="24">Serviço Social</option>
+                            <option value="25">Logística</option>
+                            <option value="26">Jornalismo</option>
+                            <option value="27">Turismo e Hospitalidade</option>
+                            <option value="28">Marketing</option>
+                        </select>
+                    </div>
+                    {{#if (eq user.tipo 1)}}   
+                        <h4 class="width100 margin_left3 margin_top20 margin_bottom10">Dados de Contato da Empresa:</h4>
+                        <div class="margin_left3 flex_column margin_top width40">
+                            <label for="localizacao">Email:</label>
+                            <input class="campo_curriculo margin_top fill" type="email" name="email">
+                        </div>
+                        <div class="margin_left3 flex_column margin_top width40">
+                            <label for="localizacao">Telefone:</label>
+                            <input class="campo_curriculo margin_top fill" type="number" name="telefone">
+                        </div>
+                    {{/if}}
+                    <div class="flex_meio margin_top20 width100">
+                        <button class="salvar_curriculo small" type="submit">Criar Vaga</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

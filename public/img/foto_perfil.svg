@@ -1,0 +1,9 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="foto_perfil">
+<circle id="foto" cx="50" cy="50" r="49.5" fill="#D9D9D9" stroke="black"/>
+<g id="button_addFoto">
+<circle id="Ellipse 23" cx="82" cy="88" r="10.5" fill="white" stroke="black"/>
+<path id="Rectangle 53" d="M81 87V83H83V87H87V89H83V93H81V89H77V87H81Z" fill="black" stroke="black"/>
+</g>
+</g>
+</svg>

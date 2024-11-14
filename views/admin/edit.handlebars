@@ -1,0 +1,98 @@
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="flex_column-center card container min_heigth width90">
+            <h1 class="margin_top20 txt_center">Editando usuario: {{usuario.nome}} {{usuario.sobrenome}}</h1>
+            
+            <form action="/admin/usuario/save" method="post" class="card container width90 margin_top20">
+                <h3 class="margin_top20">Geral:</h3>
+                <div class="margin_top20 wrap min_heigth1">
+                    <div class="flex_column width40 margin_left3 margin_top20">
+                        <label for="nome">Nome:</label>
+                        <input class="campo_curriculo margin_top" type="text" name="nome" value="{{usuario.nome}}">
+                    </div>
+                    {{#if (eq usuario.tipo 0)}}
+                        <div class="flex_column width40 margin_left3 margin_top20">
+                            <label for="sobrenome">Sobrenome:</label>
+                            <input class="campo_curriculo margin_top" type="text" name="sobrenome" value="{{usuario.sobrenome}}">
+                        </div>
+                        <div class="flex_column width40 margin_left3 margin_top20">
+                            <label for="curso">Curso:</label>
+                            <select name="Curso" id="Curso" class="campo_curriculo margin_top">
+                                <option value="1" {{#if (eq usuario.curso 1)}}selected{{/if}}>Administração</option>
+                                <option value="2" {{#if (eq usuario.curso 2)}}selected{{/if}}>Processos Gerenciais</option>
+                                <option value="3" {{#if (eq usuario.curso 3)}}selected{{/if}}>Gestão do Agronegócio</option>
+                                <option value="4" {{#if (eq usuario.curso 4)}}selected{{/if}}>Recursos Humanos</option>
+                                <option value="5" {{#if (eq usuario.curso 5)}}selected{{/if}}>Vendas</option>
+                                <option value="6" {{#if (eq usuario.curso 6)}}selected{{/if}}>Arquitetura e Urbanismo</option>
+                                <option value="7" {{#if (eq usuario.curso 7)}}selected{{/if}}>Engenharia Civil</option>
+                                <option value="8" {{#if (eq usuario.curso 8)}}selected{{/if}}>Engenharia Mecânica</option>
+                                <option value="9" {{#if (eq usuario.curso 9)}}selected{{/if}}>Engenharia Elétrica</option>
+                                <option value="10" {{#if (eq usuario.curso 10)}}selected{{/if}}>Engenharia Química</option>
+                                <option value="11" {{#if (eq usuario.curso 11)}}selected{{/if}}>Engenharia de Produção</option>
+                                <option value="12" {{#if (eq usuario.curso 12)}}selected{{/if}}>Engenharia de Computação</option>
+                                <option value="13" {{#if (eq usuario.curso 13)}}selected{{/if}}>Engenharia de Software</option>
+                                <option value="14" {{#if (eq usuario.curso 14)}}selected{{/if}}>Engenharia Ambiental e Sanitária</option>
+                                <option value="15" {{#if (eq usuario.curso 15)}}selected{{/if}}>Engenharia de Alimentos</option>
+                                <option value="16" {{#if (eq usuario.curso 16)}}selected{{/if}}>Engenharia de Telecomunicações</option>
+                                <option value="17" {{#if (eq usuario.curso 17)}}selected{{/if}}>Engenharia Biomédica</option>
+                                <option value="18" {{#if (eq usuario.curso 18)}}selected{{/if}}>Tecnologia da Informação</option>
+                                <option value="19" {{#if (eq usuario.curso 19)}}selected{{/if}}>Design Gráfico</option>
+                                <option value="20" {{#if (eq usuario.curso 20)}}selected{{/if}}>Enfermagem</option>
+                                <option value="21" {{#if (eq usuario.curso 21)}}selected{{/if}}>Fisioterapia</option>
+                                <option value="22" {{#if (eq usuario.curso 22)}}selected{{/if}}>Psicologia</option>
+                                <option value="23" {{#if (eq usuario.curso 23)}}selected{{/if}}>Pedagogia</option>
+                                <option value="24" {{#if (eq usuario.curso 24)}}selected{{/if}}>Serviço Social</option>
+                                <option value="25" {{#if (eq usuario.curso 25)}}selected{{/if}}>Logística</option>
+                                <option value="26" {{#if (eq usuario.curso 26)}}selected{{/if}}>Jornalismo</option>
+                                <option value="27" {{#if (eq usuario.curso 27)}}selected{{/if}}>Turismo e Hospitalidade</option>
+                                <option value="28" {{#if (eq usuario.curso 28)}}selected{{/if}}>Marketing</option>
+                            </select>
+                        </div>
+                    {{/if}}
+                    <div class="flex_column width40 margin_left3 margin_top20">
+                        <label for="tipo">Editar tipo de Usuario:</label>
+                        <select class="campo_curriculo margin_top" name="tipo">
+                            <option {{#if (eq usuario.tipo 0)}} selected {{/if}} value="0">Aluno</option>
+                            <option {{#if (eq usuario.tipo 2)}} selected {{/if}} value="2">Empresa</option>
+                            <option {{#if (eq usuario.tipo 1)}} selected {{/if}} value="1">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex_end margin_bottom10" style="margin: 20px 100px 3px 0px;">
+                    <input type="hidden" name="user_id" value="{{usuario._id}}">
+                    <button class="salvar_curriculo small" type="submit">Salvar Mudanças</button>
+                </div>
+            </form>
+            {{#if (eq usuario.tipo 0)}}
+            <div class="card container width90 margin_top20">
+                <h3 class="margin_top20">Usuario:</h3>
+                <div class="flex margin_top10 margin_bottom10 margin_left3">
+                    <form action="/admin/usuario/modificadados" method="post">
+                        <input type="hidden" name="user_id" value="{{usuario._id}}">
+                        <button class="button_add large width100" type="submit">Editar Dados</button>
+                    </form>
+                    <form action="/admin/usuario/curriculo" method="post">
+                        <input type="hidden" name="user_id" value="{{usuario._id}}">
+                        <button class="button_add large width100 margin_left2" type="submit">Editar Curriculo</button>
+                    </form>
+                </div>
+            </div>
+            {{/if}}
+            {{#if (eq usuario.tipo 2)}}
+            <div class="card container width90 margin_top20">
+                <h3 class="margin_top20">Empresa:</h3>
+                <div class="flex margin_top10 margin_bottom10 margin_left3">
+                    <form action="/admin/usuario/modificadados" method="post">
+                        <input type="hidden" name="user_id" value="{{usuario._id}}">
+                        <button class="button_add large width100" type="submit">Editar Dados</button>
+                    </form>
+                    <form action="/admin/empresa/editinfo" method="post">
+                        <input type="hidden" name="user_id" value="{{usuario._id}}">
+                        <button class="button_add large width100 margin_left2" type="submit">Editar Informações</button>
+                    </form>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

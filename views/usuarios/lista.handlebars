@@ -1,0 +1,165 @@
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container min_heigth width90">
+            <div class="search-container">
+                <form action="/usuarios/vizualizar" method="get">
+                    <input type="text" name="search" placeholder="Buscar usuários..." required>
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+            <div class="results-info">
+                Mostrando {{showing.from}} até {{showing.to}} de {{showing.total}} usuários
+            </div>
+            <div class="wrap">
+                {{#if (eq user.tipo 2)}}
+                {{#each usuarios}}
+                    {{#if (eq this.tipo 0)}}
+                        <div class="card-body width40">
+                            <div class="flex" style="justify-content: center; center;width: 523.11px;height: 100px;">
+                                {{#if this.foto_perfil}}
+                                    <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/uploads/{{this.foto_perfil}}">
+                                {{else}}
+                                    <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                                {{/if}}
+                                <div class="margin_left flex_column flex_end width40">
+                                    <h3>{{this.nome}} {{this.sobrenome}}</h3>
+                                    <span>
+                                        <p>{{exibirCurso this.curso}}</p>
+                                    </span>
+                                </div>
+                                <div class="flex_column margin_left width25" style="justify-content: flex-end;">
+                                    {{#if (eq this.tipo 0)}}
+                                        <form action="/usuarios/visualizar/curriculo" method="post">
+                                            <input type="hidden" name="id_user" value="{{this._id}}">
+                                            <button class="button_add yell width100" type="submit">Ver curriculo</button>
+                                        </form>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{/if}}
+                {{#if (eq user.tipo 0)}}
+                {{#each usuarios}}
+                    {{#if (eq this.tipo 2)}}
+                        <div class="card-body width40">
+                            <div class="flex" style="justify-content: center; center;width: 523.11px;height: 100px;">
+                                {{#if this.foto_perfil}}
+                                    <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/uploads/{{this.foto_perfil}}">
+                                {{else}}
+                                    <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                                {{/if}}
+                                <div class="margin_left flex_column flex_end width40">
+                                    <h3>{{this.nome}} {{this.sobrenome}}</h3>
+                                </div>
+                                <div class="flex_column margin_left width25" style="justify-content: flex-end;">
+                                    {{#if (eq this.tipo 2)}}
+                                        <form action="/empresas/info" method="post">
+                                            <input type="hidden" name="emp_id" value="{{this._id}}">
+                                            <button class="button_add width100" type="submit">Sobre a Empresa</button>
+                                        </form>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{/if}}
+                {{#if (eq user.tipo 1)}}
+                {{#each usuarios}}
+                    <div class="card-body width40">
+                        <div class="flex" style="justify-content: center; center;width: 523.11px;height: 100px;">
+                            {{#if this.foto_perfil}}
+                                <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/uploads/{{this.foto_perfil}}">
+                            {{else}}
+                                <img id="foto-perfil" class="foto-perfil-icon width17" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                            {{/if}}
+                            <div class="margin_left flex_column flex_end width40">
+                                <h3>{{this.nome}} {{this.sobrenome}}</h3>
+                                {{#if (eq this.tipo 0)}}
+                                    <span>
+                                        <p>{{exibirCurso this.curso}}</p>
+                                    </span>
+                                {{/if}}
+                            </div>
+                            <div class="flex_column margin_left width25" style="justify-content: flex-end;">
+                                {{#if (eq this.tipo 0)}}
+                                    <form action="/usuarios/visualizar/curriculo" method="post">
+                                        <input type="hidden" name="id_user" value="{{this._id}}">
+                                        <button class="button_add yell width100" type="submit">Ver curriculo</button>
+                                    </form>
+                                {{/if}}
+                                {{#if (eq this.tipo 2)}}
+                                    <form action="/empresas/info" method="post">
+                                        <input type="hidden" name="emp_id" value="{{this._id}}">
+                                        <button class="button_add  width100" type="submit">Sobre a Empresa</button>
+                                    </form>
+                                {{/if}}
+                                <form action="/admin/usuario" method="post">
+                                    <input type="hidden" name="id_user" value="{{this._id}}">
+                                    <button class="button_add red width100" type="submit">Editar Usuario</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {{/each}}
+                {{/if}}
+            </div>
+            <div class="pagination">
+                {{#if hasPreviousPage}}
+                    <a href="{{previousPage}}" class="page-link">&laquo; Anterior</a>
+                {{/if}}
+
+                <span class="page-info">
+                    Página {{currentPage}} de {{totalPages}}
+                </span>
+
+                {{#if hasNextPage}}
+                    <a href="{{nextPage}}" class="page-link">Próxima &raquo;</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.querySelector('input[name="search"]');
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.classList.add('suggestions');
+    searchInput.parentNode.appendChild(suggestionsContainer);
+
+    searchInput.addEventListener('input', async function() {
+        const query = searchInput.value;
+
+        if (query.length > 0) {
+            const response = await fetch(`/usuarios/autocomplete?q=${query}`);
+            const suggestions = await response.json();
+
+            suggestionsContainer.innerHTML = '';
+
+            suggestions.forEach(user => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.textContent = user.nomeCompleto;
+                suggestionItem.classList.add('suggestion-item'); 
+
+                suggestionItem.addEventListener('click', function() {
+                    searchInput.value = suggestionItem.textContent;
+                    suggestionsContainer.innerHTML = ''; 
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        } else {
+            suggestionsContainer.innerHTML = '';
+        }
+    });
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            suggestionsContainer.innerHTML = '';
+        }
+    });
+});
+</script>

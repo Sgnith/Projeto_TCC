@@ -1,0 +1,66 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container width80 min_heigth">
+            <div  class="card container fill margin_top20 flex_column">
+                <div class="card-body flex_row">
+                    <div class="margin_top20 margin_left flex_column width20">
+                        {{#if this.foto_perfil}}
+                            <img id="foto-perfil" class="foto-perfil-icon width90" alt="Foto de perfil" src="/uploads/{{this.foto_perfil}}">
+                        {{else}}
+                            <img id="foto-perfil" class="foto-perfil-icon width90" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                        {{/if}}
+                        <h2 class="margin_left3">{{vaga.empresa}}</h2>
+                    </div>
+                    <div class="margin_left2">
+                        <h2>{{exibirArea vaga.area}} - {{vaga.titulo}}</h2>
+                        <p>{{vaga.localizacao}} - {{formatarData vaga.data}}, candidaturas:{{vaga.candidaturas}}</p>
+                        <p class="margin_bottom20">{{exibirTipo vaga.tipo}} - {{exibirModalidade vaga.modalidade}} - {{exibirCargaHoraria vaga.carga_horaria}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card container fill margin_top20 flex_column margin_bottom20">
+                <div class="card-body">
+                    <h2 class="margin_top20">Descrição da vaga:</h2>
+                    <p class="margin_top10">{{{vaga.descricao}}}</p>
+                    <div class="margin_bottom20"></div>
+                    {{#if user}}
+                            {{#if (eq user.tipo 0)}}
+                                {{#if adm}}
+                                    <div class="fill wrap">
+                                        <h3 class="width100 margin_top20 margin_bottom10">Dados de Contato da Empresa:</h3>
+                                        <div class="flex_column margin_top width40">
+                                            <label for="localizacao">Email:</label>
+                                            <input class="campo_curriculo margin_top fill" type="email" name="email" value="{{vaga.email}}">
+                                        </div>
+                                        <div class="flex_column margin_top width40 margin_left3">
+                                            <label for="localizacao">Telefone:</label>
+                                            <input class="campo_curriculo margin_top fill" type="number" name="telefone" value="{{vaga.telefone}}">
+                                        </div>
+                                    </div>
+                                {{else}}
+                                    <div class="flex_column-center">
+                                        <form action="vaga/candidatura" method="post">
+                                            <input type="hidden" name="id_vaga" value="{{vaga.id}}">
+                                            <input type="hidden" name="id_user" value="{{user.id}}">
+                                            <button type="submit" class="margin_top20 button_add margin_bottom20 large">Candidatar-se</button>
+                                        </form>
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                        {{else}}
+                            <div class="flex_column-center">
+                                <a href="/usuarios/login">
+                                    <button class="margin_top20 button_add margin_bottom20">Para candidatar-se, você precisa estar logado.</button>
+                                </a>
+                            </div>
+                        {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

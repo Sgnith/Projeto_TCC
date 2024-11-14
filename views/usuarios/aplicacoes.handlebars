@@ -1,0 +1,79 @@
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>Tem certeza que deseja Retirar sua aplicação a essa vaga?</p>
+        <button id="confirmDelete" class="button_add red">Sim, retirar</button>
+        <button id="cancelDelete" class="button_add">Cancelar</button>
+    </div>
+</div>
+
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container fill min_heigth">
+            <h2 class="margin_top20"><center> Vagas aplicadas:</center></h2>
+            <div class="margin_top20 wrap">
+                {{#each vagas}}
+                    <div class="card container width45 margin_top20 margin_bottom20 margin_left2">
+                        <h2>{{titulo}}</h2>
+                        <p><strong>Empresa:</strong> {{usuario.nome}}</p>
+                            <p>{{{limitaDesc descricao}}}</p>
+                        {{#if candidatura.selecionado}}
+                            <img src="" alt="">
+                        {{/if}}
+                        <div class="flex_row-SB margin_top10">
+                            <form action="/vagas/vaga_{{titulo}}" method="post">
+                                <input type="hidden" name="id" value="{{_id}}">
+                                <button class="button_add margin_bottom10">Ver mais</button>
+                            </form>
+                            <div class="flex_column-meio">
+                                <form action="/usuarios/aplicacoes/excluir" method="post">
+                                    <input type="hidden" name="id" value="{{_id}}">
+                                    <button type="submit" class="button_add margin_top margin_bottom10 red delete-button">Retirar Aplicação</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-button'); 
+        const confirmModal = document.getElementById('confirmModal'); 
+        const confirmDelete = document.getElementById('confirmDelete'); 
+        const cancelDelete = document.getElementById('cancelDelete'); 
+
+        let formToSubmit; 
+
+        // Ao clicar em "Excluir Vaga"
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                formToSubmit = this.closest('form'); 
+                confirmModal.style.display = 'block'; 
+            });
+        });
+
+        // confirmar a exclusão
+        confirmDelete.addEventListener('click', function() {
+            confirmModal.style.display = 'none'; 
+            formToSubmit.submit(); 
+        });
+
+        // cancelar a exclusão
+        cancelDelete.addEventListener('click', function() {
+            confirmModal.style.display = 'none'; 
+            formToSubmit = null; 
+        });
+
+        // Quando clicar fora do modal, fechar o modal
+        window.onclick = function(event) {
+            if (event.target == confirmModal) {
+                confirmModal.style.display = 'none';
+            }
+        };
+    });
+</script>

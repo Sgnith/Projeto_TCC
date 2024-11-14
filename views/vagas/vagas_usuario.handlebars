@@ -1,0 +1,10 @@
+{{#each vagas}}
+    <div class="vaga-container">
+        <img src="{{usuario.foto_perfil}}" alt="Foto da empresa">
+        <h2>{{titulo}}</h2>
+        <p>{{descricao}}</p>
+        <p><strong>Empresa:</strong> {{usuario.empresa}}</p>
+        <p><strong>Data da candidatura:</strong> {{formatarData data}}</p>
+        <a href="/vagas/vaga_{{_id}}">Ver vaga</a>
+    </div>
+{{/each}}

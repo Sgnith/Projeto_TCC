@@ -1,0 +1,112 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="page margin_paginas">
+<div class="flex fill">
+    {{!-- menu esquerdo --}}
+    <div class="card container width20 min_heigth">
+        <div class="card-body flex_column flex_center">
+            {{!-- FOTO --}}
+            <form id="uploadForm" action="/usuarios/uploadFoto" method="POST" enctype="multipart/form-data">
+                <label for="fotoUpload">
+                    {{#if user.foto_perfil}}
+                        <img id="foto-perfil" class="foto-perfil-icon" alt="Foto de perfil" src="/uploads/{{user.foto_perfil}}">
+                    {{else}}
+                        <img id="foto-perfil" class="foto-perfil-icon" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                    {{/if}}
+                </label>
+                <input type="file" id="fotoUpload" name="foto" accept="image/*" style="display:none" onchange="document.getElementById('uploadForm').submit();">
+            </form>
+            {{!-- NOME --}}
+            {{#if (eq user.tipo 2)}}
+                <h4>{{user.nome}}</h4>
+                <div class="separadorH"></div>
+                {{#if user.empresa.estrela}}
+                    <span class="margin_top10">Ultimo feedback: {{formatarData user.empresa.estrela}}</span>
+                    <span>Sua estrela vence em: {{estrelaPerdida user.empresa.estrela}}</span>
+                {{else}}
+                    <span class="margin_top10">
+                        Você ainda não deu nenhum feedback
+                        <br>
+                        <a href="/empresas/vagas"><button class="button_feedback">De um feedback agora e ganhe visibilidade!</button></a>
+                    </span>
+                {{/if}}
+            {{else}}
+                <div class=" margin_top10">
+                    <h4>{{user.nome}} {{user.sobrenome}}</h4>
+                    <span>{{exibirCurso user.curso}}</span>
+                </div>
+            {{/if}}
+            
+            
+        </div>
+    </div>
+    {{!-- menu direito --}}
+    <div class="card container margin_left2 fill">
+        <div>
+            
+            <h3 class="margin_top20">Geral:</h3>
+            <div class="card-body flex">
+                <a href="/vagas" class="card opcao">
+                    <div class="card-body flex_center flex_center2">
+                        <h4 class="txt_center">Vagas</h4>
+                    </div>
+                </a>
+                <a href="usuarios/modificardados" class="card opcao">
+                    <div class="card-body flex_center flex_center2">
+                        <h4 class="txt_center">Modificar dados</h4>
+                    </div>
+                </a>
+                <a href="/usuarios/vizualizar" class="card opcao">
+                    <div class="card-body flex_center flex_center2">
+                        <h4 class="txt_center">{{#if (eq user.tipo 0)}}Visualizar Empresas{{else}}Visualizar Usuarios{{/if}}</h4>
+                    </div>
+                </a>
+            </div>
+
+            {{#if (eq user.tipo 0)}}
+                <h3 class="margin_top10">Usuario:</h3>
+                <div class="card-body flex">
+                    <a href="/usuarios/curriculo/{{user._id}}" class="card opcao">
+                        <div class="card-body flex_center flex_center2">
+                            <h4 class="txt_center">Atualizar Curriculo</h4>
+                        </div>
+                    </a>
+                    <a href="/vagas/aplicacoes" class="card opcao">
+                        <div class="card-body flex_center flex_center2">
+                            <h4 class="txt_center">Vizualiar suas Aplicacoes</h4>
+                        </div>
+                    </a>
+                </div>
+            {{else}}
+                <h3 class="margin_top10">Empresa:</h3>
+                <div class="card-body flex">
+                    <a href="/empresas/info/edit" class="card opcao">
+                        <div class="card-body flex_center flex_center2">
+                            <h4 class="txt_center">Editar Informações da Emperesa</h4>
+                        </div>
+                    </a>
+                    <a href="/empresas/vagas/criarvaga" class="card opcao">
+                        <div class="card-body flex_center flex_center2">
+                            <h4 class="txt_center">Criar uma vaga</h4>
+                        </div>
+                    </a>
+                    <a href="/empresas/vagas" class="card opcao">
+                        <div class="card-body flex_center flex_center2">
+                            <h4 class="txt_center">Visualizar suas vagas</h4>
+                        </div>
+                    </a>
+                </div>
+                {{#if (eq user.tipo 1)}}
+                    {{!-- <h3 class="margin_top10">Adm:</h3> --}}
+                    
+                {{/if}}
+            {{/if}}
+        
+        </div>
+    </div>
+</div>
+</div>

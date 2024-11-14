@@ -1,0 +1,52 @@
+{{#each erros}}
+    <div class="alert-overlay alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cnpj = document.getElementById('Cnpj');
+        const Telefone  = document.getElementById('Telefone');
+
+        cnpj.addEventListener('input', () => {
+            if (cnpj.value.length > 14) {
+                cnpj.value = cnpj.value.slice(0, 14);
+            }
+        });
+
+        Telefone.addEventListener('input', () => {
+            if (Telefone.value.length > 11) {
+                Telefone.value = Telefone.value.slice(0, 11);
+            }
+        });
+    });
+</script>
+<div class="card container registro">
+    <div class="card-body">
+        <form action="" method="post"  class="flex_column-center">
+            <div class="flex_column div90">
+                <label for="nome" class="margin_top20">Nome:</label>
+                <input type="text" name="nome" class="campo_curriculo margin_top" required>
+            </div>
+            <div class="flex_column div90">
+                <label for="Cnpj" class="margin_top20">Cnpj:</label>
+                <input type="number" id="Cnpj" name="Cnpj" class="campo_curriculo margin_top" required>
+            </div>
+            <div class="flex_column div90">
+                <label for="email" class="margin_top20">Email:</label>
+                <input type="email" name="email" class="campo_curriculo margin_top" required>
+            </div>
+            <div class="div90 flex">
+                <div class="flex_column div50">
+                    <label for="senha" class="margin_top20">Crie sua Senha:</label>
+                    <input type="password" name="senha" class="campo_curriculo margin_top" required>
+                </div>
+                <div class="flex_column div50 margin_left">
+                    <label for="senha2" class="margin_top20">Repita sua senha:</label>
+                    <input type="password" name="senha2" class="campo_curriculo margin_top" required>
+                </div>
+            </div>
+            <button type="submit" class="margin_top20 div20 salvar_curriculo">Criar Conta</button>
+        </form>
+    </div>
+</div>

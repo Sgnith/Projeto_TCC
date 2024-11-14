@@ -1,0 +1,51 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+
+<div  class="card container div80 margin_top20 flex_row flex_column-SB">
+    <div class="card-body">
+        <div class="flex_row">
+            <h1>Candidato:</h1>
+            <h2 class="margin_left">{{usuario.nome}} {{usuario.sobrenome}}</h2>    
+        </div>
+        <h3 class="">Vaga: {{vaga.titulo}} </h3>
+    </div>
+</div>
+
+
+<div class="card container div80 margin_top20 flex_row flex_column-SB">
+    <div class="card-body">
+        <h1>FeedBack:</h1>
+        <p>(Todos os campos são opcionais, porém são muito importantes para que os alunos se aprimorarem, portanto por favor de um feedback à eles)</p>
+        <br>
+        <form action="/empresas/vagas/{{vaga.titulo}}/{{usuario.nome}}/enviarfeedback" method="post">
+            <input type="hidden" name="id_vaga" value="{{vaga._id}}">
+            <input type="hidden" name="id_user" value="{{usuario._id}}">
+            <input type="hidden" name="id_emp" value="{{user._id}}">
+
+            <div class="flex_column">
+                <label for="faltou">O que faltou para o candidato ser selecionado para a vaga?</label>
+                <textarea class="campo_curriculo margin_top div80" name="faltou" id=""></textarea>
+            </div>
+            <div class="flex_column margin_top10">
+                <label for="melhor">Houve alguma parte do currículo ou da entrevista que poderia ter sido melhor explorada pelo candidato?</label>
+                <textarea class="campo_curriculo margin_top div80" name="melhor" id=""></textarea>
+            </div>
+            <div class="flex_column margin_top10">
+                <label for="comparacao">Como o candidato se comparou com os outros candidatos que participaram do processo seletivo?</label>
+                <textarea class="campo_curriculo margin_top div80" name="comparacao" id=""></textarea>
+            </div>
+            <div class="flex_column margin_top10">
+                <label for="melhoria">Existem áreas de desenvolvimento pessoal ou profissional que você recomendaria para este candidato?</label>
+                <textarea class="campo_curriculo margin_top div80" name="melhoria" id=""></textarea>
+            </div>
+            <div class="flex_column margin_top10">
+                <label for="bom">O que mais impressionou na candidatura ou na entrevista do candidato? (ponto possitivo)</label>
+                <textarea class="campo_curriculo margin_top div80" name="bom" id=""></textarea>
+            </div>
+
+            <button type="submit" class="">Envir FeedBack</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<head></head>
+    <link rel="stylesheet" href="/css/curriculo.css">
+</head>
+
+
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+
+<div class="fundo_curriculo">
+    <div class="cloco_curriculo">
+        <div class="dados bloco_salvar">
+            <ol class="list_flex flex_column fill margin_LR13">
+                <li class="li_group">
+                    <div class="Form_Title">E-mail:</div>
+                    <input class="campo_curriculo div100" type="email" value="{{usuario.email}}" disabled>
+                </li>
+                <div class="flex">
+                    <li class="li_group li_small">
+                        <div class="Form_Title">Telefone</div>
+                        <div class="divflex">
+                            <input disabled value="{{curriculo.ddd}}" class="campo_curriculo div20" type="number" id="ddd" name="ddd">
+                            <span class="traco">-</span>
+                            <input disabled value="{{curriculo.num}}" class="campo_curriculo div60" type="number" id="num" name="num">
+                        </div>
+                    </li>
+                    <li class="li_group">
+                        <div class="Form_Title">Aceita receber mensagens das empresas por WhatsApp?</div>
+                        <ul>
+                            <li>
+                                <input disabled value='true' name="whatsapp" class="bolinha" type="radio" id="whatsapp_positive" {{#if curriculo.whatsapp}}checked{{/if}}>
+                                <label for="whatsapp_positive">Sim</label>
+                            </li>
+                            <li>
+                                <input disabled value='false' name="whatsapp" class="bolinha" type="radio" id="whatsapp_negative" {{#if (neq curriculo.whatsapp true)}}checked{{/if}}>
+
+                                <label for="whatsapp_negative">Não</label>
+                            </li>
+                            </ul>
+                    </li>
+                </div>
+            </ol>
+        </div>
+        <div class="dados bloco_salvar">
+            <div class="bloco_salvar">
+                <button class="salvar_curriculo" onclick="window.history.back()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>

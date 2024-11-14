@@ -1,0 +1,24 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+<div class="card container login">
+    <div class="card-body">
+        <form action="/usuarios/login" method="post" class="flex_column-center">
+            <div class="flex_column div90 margin_top30">
+                <label for="email" class="li_group">Email:</label>
+                    <input type="email" name="email" class="campo_curriculo margin_top" required>
+            </div>
+            <div class="flex_column div90 margin_top20">
+                <label for="senha" class="li_group">Senha:</label>
+                    <input type="password" name="senha" class="campo_curriculo margin_top" required>
+                <a style="text-align: end;" href="/usuarios/esqueci-minha-senha">Esqueci minha senha!</a>
+            </div>
+            <button type="submit" class="li_group div20 button_add margin_top40 large">Entrar</button>
+            <br>
+            <a href="/usuarios/registro">Não tem conta? Cadastre-se agora!</a>
+        </form>
+        
+    </div>
+</div>

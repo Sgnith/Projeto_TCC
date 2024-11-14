@@ -1,0 +1,548 @@
+<head>
+    <link rel="stylesheet" href="/css/curriculo.css">
+    <script src="/js/curriculo.js"></script>
+</head>
+
+{{#if positivo}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formacoes = JSON.parse('{{{formacoes}}}');
+            const experiencias = JSON.parse('{{{experiencias}}}');
+            const idiomas = JSON.parse('{{{idiomas}}}');
+            const habilidades = JSON.parse('{{{habilidades}}}');
+
+            atualizarVariaveis(formacoes, experiencias, idiomas, habilidades);
+        });
+    </script>
+{{/if}}
+
+
+<div class="fundo_curriculo">
+    <form class="bloco_curriculo" action="/usuarios/curriculo/editar" method="POST">
+        <input type="hidden" name="formacoes" id="formacoes-hidden">
+        <input type="hidden" name="experiencias" id="experiencias-hidden">
+        <input type="hidden" name="idiomas" id="idiomas-hidden">
+        <input type="hidden" name="habilidades" id="habilidades-hidden">
+        <input type="hidden" name="usuario_id" value="{{curriculo.usuario}}">
+
+        <div class="dados">
+            <div class="divtitulo">Curriculum Vitae</div>
+        </div>
+        <!-- DADOS PESSOAIS -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header> Dados Pessoais</header>
+                <p class="sublink">Garantimos a segurança e a confidencialidade de todos os dados pessoais introduzidos em seu cadastro.</p>
+            </div>
+            <div class="secao_campos">
+                <ol class="list_flex">
+                    <!-- NÃO QUERO PEGAR CPF DA PESSOA, DESNECESSARIO -->
+                    <li class="margin20">
+                        <div class="Form_Title">Nome</div>
+                        <input value="{{usuario.nome}}" class="campo_curriculo" type="text" name="nome" id="nome">
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li>
+                        <div class="Form_Title">Sobrenome</div>
+                        <input value="{{usuario.sobrenome}}" class="campo_curriculo" type="text" name="sobrenome" id="sobrenome">
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group li_resumo">
+                        <div class="Form_Title">Resumo</div>
+                        <textarea class="campo_curriculo height15rem div100" name="resumo" id="myTextarea" placeholder="Descreva brevemente suas habilidades, conehcimentos, interesses e pretensões futuras">{{#if curriculo.resumo}}{{curriculo.resumo}}{{/if}}</textarea>
+                    </li>
+                    <li class="li_group li_small">
+                        <div class="Form_Title">Telefone</div>
+                        <div class="divflex">
+                            <input value="{{curriculo.ddd}}" class="campo_curriculo div20" type="number" id="ddd" name="ddd">
+                            <span class="traco">-</span>
+                            <input value="{{curriculo.num}}" class="campo_curriculo div60" type="number" id="num" name="num">
+                        </div>
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group">
+                        <div class="Form_Title">Aceita receber mensagens das empresas por WhatsApp?</div>
+                        <ul>
+                            <li>
+                                <input value='true' name="whatsapp" class="bolinha" type="radio" id="whatsapp_positive" {{#if curriculo.whatsapp}}checked{{/if}}>
+                                <label for="whatsapp_positive">Sim</label>
+                            </li>
+                            <li>
+                                <input value='false' name="whatsapp" class="bolinha" type="radio" id="whatsapp_negative" {{#if (neq curriculo.whatsapp true)}}checked{{/if}}>
+
+                                <label for="whatsapp_negative">Não</label>
+                            </li>
+                            </ul>
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group li_small">
+                        <div class="Form_Title">Idade:</div>
+                        <div>
+                            <input value="{{curriculo.idade}}" class="campo_curriculo div30" type="number" id="idade" name="idade">
+                        </div>
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group">
+                        <div class="Form_Title">Estado Civil</div>
+                        <select class="campo_curriculo" name="estado_civil" id="">
+                            <option value="0">Estado Civil</option>
+                            <option value="1" {{#if (eq curriculo.estado_civil 1)}}selected{{/if}}>Solteiro(a)</option>
+                            <option value="2" {{#if (eq curriculo.estado_civil 2)}}selected{{/if}}>Casado(a)</option>
+                            <option value="3" {{#if (eq curriculo.estado_civil 3)}}selected{{/if}}>Divorciado(a)</option>
+                            <option value="4" {{#if (eq curriculo.estado_civil 4)}}selected{{/if}}>Viúvo(a)</option>
+                        </select>
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group">
+                        <div class="Form_Title">Sexo</div>
+                        <select class="campo_curriculo" name="sexo" id="">
+                            <option value="0">Não Esecificado</option>
+                            <option value="1" {{#if (eq curriculo.sexo 1)}}selected{{/if}}>Masculino</option>
+                            <option value="2" {{#if (eq curriculo.sexo 2)}}selected{{/if}}>Feminino</option>
+                        </select>
+                        <div class="erro_preencimento"></div>
+                    </li>
+                    <li class="li_group">
+                        <input name="deficiencia" class="" type="checkbox" id="deficiency_positive" onclick="ShowDeficiency(this)"  {{#if curriculo.deficiencia}}checked{{/if}}>
+                        {{#if curriculo.deficiencia}}
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function(){
+                                    ShowDeficiency(this)
+                                })
+                            </script>
+                        {{/if}}
+                        <label for="deficiency_positive">Pessoa com deficiencia</label>
+                        <div class="opçoes_deficiencias">
+                            <ul id="deficiency" class="hidden li_group">
+                                <div class="input_label">
+                                    <input value="{{curriculo.deficiencia_txt}}" class="campo_curriculo" type="text" name="deficiencia_txt" id="">
+                                    <label for="deficiencia_txt">Qual?</label>
+                                </div>
+                            </ul>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+        <!-- FORMAÇÃO ACADEMICA/CURSOS  -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Formação Academica</header>
+            </div>
+            <div class="secao_campos">
+                <ul>
+                    <li>
+                        <div class="formacao_salva hidden"></div>
+                    </li>
+                    <li>
+                        <ol>
+                            <li class="" id="bloco_cabeca_formacao">
+                                <a class="addnovo" href="#" id="incluir_formacao" onclick="addformacao(event)">+Incluir nova Formação</a>
+                            </li>
+                            <li>
+                                <ul class="bloco_add_corpo hidden" id="bloco_corpo_formacao">
+                                    <li>
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_instituicao"></div>
+                                            <input class="campo_curriculo div100" type="text" placeholder="Nome da Instituição" id="nome_instituicao">
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="li_group flex">
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_nivel"></div>
+                                            <select class="campo_curriculo margin20" name="formacao_nivel" id="formacao_nivel">
+                                            <option selected="selected" value="">Nível</option>
+                                            <option value="1">Curso extra-curricular / Profissionalizante </option>
+                                            <option value="2">Curso Técnico</option>
+                                            <option value="3">Ensino Superior</option>
+                                            <option value="4">Pós-graduação - Especialização/MBA</option>
+                                            <option value="5">Pós-graduação - Mestrado</option>
+                                            <option value="6">Pós-graduação - Doutorado</option>
+                                            </select>
+                                        </div>
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_curso"></div>
+                                            <input class="campo_curriculo campo_curso div100" type="text" name="curso" id="curso" placeholder="Curso">
+                                        </div>
+                                    </li>
+                                    <li class="li_group campos_data">
+                                        <span class="input_label margin20">
+                                            <div class="erro_preencimento" id="erro_preencimento_data_inicio"></div>
+                                            <input class="campo_curriculo" type="month" name="formacao_data_inicio" id="formacao_data_inicio">
+                                            <label for="formacao_data_inicio">Data Início</label>
+                                        </span>
+                                        <span class="input_label margin20">
+                                            <div class="erro_preencimento"></div>
+                                            <select class="campo_curriculo" name="formacao_status" id="formacao_status" onchange="hidedata()">
+                                                <option value="1">Concluido</option>
+                                                <option value="2">Cursando</option>
+                                                <option value="3">Trancado</option>
+                                            </select>
+                                            <label for="formacao_status">Status</label>
+                                        </span>
+                                        <span class="input_label" id="hidedata">
+                                            <div class="erro_preencimento" id="erro_preencimento_data_termino"></div>
+                                            <input class="campo_curriculo" type="month" name="formacao_data_termino" id="formacao_data_termino">
+                                            <label for="formacao_data_termino" id="label_data_conclusao">Data Conclusão</label>
+                                        </span>
+                                    </li>
+                                    <li class="li_group">
+                                        <button type="button" class="button_add" onclick="adicionarFormacao()">Adicionar Formação</button>
+                                        <button type="button" class="button_cancelar" onclick="cancelar_for(event)">Cancelar</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="addList" id="formacaoesList"></div>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EXPERIÊNCIAS PROFISSIONAIS -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Experiências Profissionais</header>
+            </div>
+            <div class="secao_campos">
+                <ul>
+                    <li>
+                        <div class="experiencia_salva hidden"></div>
+                    </li>
+                    <li>
+                        <ol class="addnew">
+                            <li class="" id="bloco_cabeca_experiencia">
+                                <a class="addnovo" href="#" id="incluir_experiencia" onclick="addexperiencia(event)">+ Incluir Nova Experiência Profissional</a>
+                            </li>
+                            <ul class="bloco_add_corpo hidden" id="bloco_corpo_experiencia">
+                                <li>
+                                    <div class="input_label">
+                                        <div class="erro_preencimento" id="erro_preencimento_experiencia_empresa"></div>
+                                        <input class="campo_curriculo div100" type="text" name="nome_empresa" id="nome_empresa" placeholder="Nome da Empresa">
+                                    </div>
+                                </li>
+                                <li class="li_group flex">
+                                    <div class="input_label">
+                                    <div class="erro_preencimento" id="erro_preencimento_experiencia_cargo"></div>
+                                    <input class="campo_curriculo margin20" type="text" name="cargo" id="cargo" placeholder="Indique seu cargo">
+                                    </div>
+                                    <div class="input_label ">
+                                        <div class="erro_preencimento" id="erro_preencimento_experiencia_hierarquia"></div>
+                                        <select class="campo_curriculo" name="hierarquia" id="hierarquia">
+                                            <option selected="selected" value="0">Nível Hierárquico</option>
+                                            <option value="1">Estagiário</option>
+                                            <option value="2">Operacional</option>
+                                            <option value="3">Auxiliar</option>
+                                            <option value="4">Assistente</option>
+                                            <option value="5">Trainee</option>
+                                            <option value="6">Analista</option>
+                                            <option value="7">Encarregado</option>
+                                            <option value="8">Supervisor</option>
+                                            <option value="9">Consultor</option>
+                                            <option value="10">Especialista</option>
+                                            <option value="11">Coordenador</option>
+                                            <option value="12">Gerente</option>
+                                            <option value="13">Diretor</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="li_group campos_data">
+                                    <span class="input_label margin20">
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_experiencia_data_inicio"></div>
+                                            <input class="campo_curriculo" type="month" name="experiencia_data_inicio" id="experiencia_data_inicio">
+                                            <label for="experiencia_data_inicio">Data Início</label>
+                                        </div>
+                                    </span>
+                                    <span class="input_label margin20">
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_experiencia_data_termino"></div>
+                                            <input class="campo_curriculo" type="month" name="experiencia_data_termino" id="experiencia_data_termino">
+                                            <label for="experiencia_data_termino">Data Conclusão</label>
+                                        </div>
+                                    </span>
+                                    <span class="margin20 flex">
+                                        <div class="input_label">
+                                            <div class="erro_preencimento" id="erro_preencimento_experiencia_atual"></div>
+                                            <div>
+                                                <input class="campo_curriculo" type="checkbox" onclick="" onchange="disnabledata()" name="experiencia_data_atual" id="experiencia_data_atual">
+                                                <label for="experiencia_data_atual">Atualidade</label>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="li_group">
+                                    <input class="campo_curriculo div100" type="text" name="experiencia_descricao" id="experiencia_descricao" placeholder="Descrição curta das Atividades (opcional)">
+                                </li>
+                                <li class="li_group">
+                                    <button type="button" class="button_add" onclick="adicionarExperiencia()">Adicionar Experiência</button>
+                                    <button type="button" class="button_cancelar" onclick="cancelar_exp(event)">Cancelar</button>
+                                </li>
+                            </ul>
+                            <li>
+                                <div class="addList" id="experienciasList"></div>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IDIOMAS -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Idiomas</header>
+            </div>
+            <div class="secao_campos">
+                <ul>
+                    <li>
+                        <div class="idioma_salvo hidden"></div>
+                    </li>
+                    <li>
+                        <ol class="addnew">
+                            <li class="" id="bloco_cabeca_idioma">
+                                <a class="addnovo" href="#" onclick="addidioma(event)">+ Incluir novo Idioma</a>
+                            </li>
+                            <ul class="bloco_add_corpo hidden" id="bloco_corpo_idioma">
+                                <li class="li_group flex">
+                                    <div class="input_label">
+                                        <div class="erro_preencimento" id="erro_preencimento_idioma"></div>
+                                        <select class="campo_curriculo margin20" name="idioma" id="idioma">
+                                            <option value="">Idioma</option>
+                                            <option value="47">Espanhol</option>
+                                            <option value="15">Francês</option>
+                                            <option value="11">Inglês</option>
+                                            <option value="24">Italiano</option>
+                                            <option value="37">Português</option>
+                                            <option value="1">Afrikaans</option>
+                                            <option value="16">Alemão</option>
+                                            <option value="2">Árabe</option>
+                                            <option value="3">Armeno</option>
+                                            <option value="4">Bengalí</option>
+                                            <option value="63">Búlgaro</option>
+                                            <option value="5">Cantonês</option>
+                                            <option value="59">Catalão</option>
+                                            <option value="6">Chinês</option>
+                                            <option value="27">Coreano</option>
+                                            <option value="7">Croato</option>
+                                            <option value="9">Dinamarquês</option>
+                                            <option value="46">Eslovaco</option>
+                                            <option value="12">Farsi</option>
+                                            <option value="13">Filipino</option>
+                                            <option value="14">Finlandês</option>
+                                            <option value="60">Galego</option>
+                                            <option value="17">Grego</option>
+                                            <option value="18">Gujarati</option>
+                                            <option value="19">Hebraico</option>
+                                            <option value="10">Holandês</option>
+                                            <option value="21">Húngaro</option>
+                                            <option value="20">Índio</option>
+                                            <option value="23">Indonésio</option>
+                                            <option value="22">Islandês</option>
+                                            <option value="25">Japonês</option>
+                                            <option value="26">Kannad</option>
+                                            <option value="28">Latin</option>
+                                            <option value="29">Latviano</option>
+                                            <option value="64">Libras</option>
+                                            <option value="30">Lituano</option>
+                                            <option value="31">Malaio</option>
+                                            <option value="32">Malayalamo</option>
+                                            <option value="33">Mandarin</option>
+                                            <option value="34">Marathi</option>
+                                            <option value="35">Noruego</option>
+                                            <option value="36">Polonês</option>
+                                            <option value="38">Punjabi</option>
+                                            <option value="39">Romano</option>
+                                            <option value="40">Russo</option>
+                                            <option value="41">Samoano</option>
+                                            <option value="42">Sânscrito</option>
+                                            <option value="43">Servio-croata</option>
+                                            <option value="45">Sinalés</option>
+                                            <option value="44">Sindhi</option>
+                                            <option value="49">Sueco</option>
+                                            <option value="48">Swahili</option>
+                                            <option value="50">Tagalog</option>
+                                            <option value="51">Taiwanês</option>
+                                            <option value="52">Tamil</option>
+                                            <option value="8">Tcheco</option>
+                                            <option value="53">Telugu</option>
+                                            <option value="54">Thai</option>
+                                            <option value="55">Turco</option>
+                                            <option value="57">Ucraniano</option>
+                                            <option value="56">Urdu</option>
+                                            <option value="62">Valenciano</option>
+                                            <option value="61">Vasco</option>
+                                            <option value="58">Vietnamita</option>
+                                        </select>
+                                    </div>
+                                    <div class="input_label">
+                                        <div class="erro_preencimento" id="erro_preencimento_idioma_nivel"></div>
+                                        <select class="campo_curriculo margin20" name="idioma_nivel" id="idioma_nivel">
+                                            <option value="">Nível</option>
+                                            <option value="1">Básico</option>
+                                            <option value="2">Intermediário</option>
+                                            <option value="3">Avançado</option>
+                                            <option value="4">Nativo</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="button_add" onclick="adicionarIdioma()">Incluir</button>
+                                        <button type="button" class="button_cancelar" onclick="cancelar_idi(event)">Cancelar</button>
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                            <li>
+                                <div class="addList" id="idiomasList">
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- HABILIDADES E COMPETENCIAS -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Habilidades e Competencias</header>
+            </div>
+            <div class="secao_campos">
+                <ul class="div80">
+                    <li>
+                        <div class="campo_hab">
+                            <input class="campo_curriculo div60 margin20" type="text" name="hability" id="hability" placeholder="Escreva sua Habilidade e/ou Competencia">
+                            <button type="button" class="button_add" onclick="addHabilidades()">Incluir</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hability_salva" id="hability_salva">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IFORMAÇÕES COMPLEMENTARES -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Iformações Complementares</header>
+            </div>
+            <div>
+                <ol>
+                    <li>
+                        <div class="campo_hab">Tem habilitação para dirigir? Qual?</div>
+                        <ul class="list_flex">
+                            <li class="margin20 ">
+                                <input type="checkbox" name="moto" id="moto" {{#if curriculo.moto}}checked{{/if}}>
+                                <label for="moto">A</label>
+                            </li>
+                            <li class="margin20 list_flex">
+                                <input value="1" class="margin10" type="radio" name="veiculo" id="b"  {{#if (eq curriculo.carro 1)}}checked{{/if}}>
+                                <label for="b">B</label>
+                            </li>
+                            <li class="margin20 list_flex">
+                                <input value="2" class="margin10" type="radio" name="veiculo" id="c" {{#if (eq curriculo.carro 2)}}checked{{/if}}>
+                                <label for="c">C</label>
+                            </li>
+                            <li class="margin20 list_flex">
+                                <input value="3" class="margin10" type="radio" name="veiculo" id="d" {{#if (eq curriculo.carro 3)}}checked{{/if}}>
+                                <label for="d">D</label>
+                            </li>
+                            <li class="margin20 list_flex">
+                                <input value="4" class="margin10" type="radio" name="veiculo" id="e" {{#if (eq curriculo.carro 4)}}checked{{/if}}>
+                                <label for="e">E</label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li_group">
+                        <div class="campo_hab">Tem Disponibilidade para viajar?</div>
+                        <ul class="list_flex">
+                            <li class="margin20">
+                                <input value="true" type="radio" name="viagem" id="viagem_sim"  {{#if curriculo.viagem}}checked{{/if}}>
+
+                                <label for="viagem_sim">Sim</label>
+                            </li>
+                            <li class="margin20">
+                                <input value="false" type="radio" name="viagem" id="viagem_nao" {{#if (neq curriculo.viagem true)}}checked{{/if}}>
+                                <label for="viagem_nao">Não</label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li_group">
+                        <div class="campo_hab">Tem Disponibilidade para mudar de residencia?</div>
+                        <ul class="list_flex">
+                            <li class="margin20">
+                                <input value="true" type="radio" name="mudanca" id="mudar_sim" {{#if curriculo.mudanca}}checked{{/if}}>
+                                <label for="mudar_sim">Sim</label>  
+                            </li>
+                            <li class="margin20">
+                                <input value="false" type="radio" name="mudanca" id="mudar_nao" {{#if (neq curriculo.mudanca true)}}checked{{/if}}>
+                                <label for="mudar_nao">Não</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- OBJETIVOS PROFISSIONAIS -->
+        <div class="dados">
+            <div class="secao_texto">
+                <header>Objetivos Profissionais</header>
+            </div>
+            <div class="secao_campos">
+                <ol class="list_flex">
+                    <li class="li_group">
+                        <div class="input_label">
+                            <div class="erro_preencimento" id="erro_preencimento_jornada"></div>
+                            <div>
+                                <div>Jornada</div>
+                                <select class="campo_curriculo" name="jornada" id="jornada">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="5" {{#if (eq curriculo.jornada 5)}}selected{{/if}}>Noturno</option>
+                                    <option value="4" {{#if (eq curriculo.jornada 4)}}selected{{/if}}>Parcial manhãs</option>
+                                    <option value="3" {{#if (eq curriculo.jornada 3)}}selected{{/if}}>Parcial noites</option>
+                                    <option value="2" {{#if (eq curriculo.jornada 2)}}selected{{/if}}>Parcial tardes</option>
+                                    <option value="1" {{#if (eq curriculo.jornada 1)}}selected{{/if}}>Período Integral</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="li_group">
+                        <div class="input_label">
+                            <div class="erro_preencimento" id="erro_preencimento_contrato"></div>
+                            <div>
+                                <div>Tipo de contrato</div>
+                                <select class="campo_curriculo" name="tipo_contrato" id="tipo_contrato">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="1" {{#if (eq curriculo.tipo_contrato 1)}}selected{{/if}}>Efetivo – CLT</option>
+                                    <option value="2" {{#if (eq curriculo.tipo_contrato 2)}}selected{{/if}}>Estágio</option>
+                                    <option value="3" {{#if (eq curriculo.tipo_contrato 3)}}selected{{/if}}>Jovem Aprendiz</option>
+                                    <option value="4" {{#if (eq curriculo.tipo_contrato 4)}}selected{{/if}}>Autônomo</option>
+                                    <option value="5" {{#if (eq curriculo.tipo_contrato 5)}}selected{{/if}}>Cooperado</option>
+                                    <option value="6" {{#if (eq curriculo.tipo_contrato 6)}}selected{{/if}}>Prestador de Serviços (PJ)</option>
+                                    <option value="7" {{#if (eq curriculo.tipo_contrato 7)}}selected{{/if}}>Temporário</option>
+                                    <option value="8" {{#if (eq curriculo.tipo_contrato 8)}}selected{{/if}}>Trainee</option>
+                                    <option value="9" {{#if (eq curriculo.tipo_contrato 9)}}selected{{/if}}>Outros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- SALVAR -->
+        <div class="dados bloco_salvar">
+            <div class="bloco_salvar">
+                <button class="salvar_curriculo" type="submit">Salvar Curriculo</button>
+            </div>
+        </div>
+    </form>
+</div>

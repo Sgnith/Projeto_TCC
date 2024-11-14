@@ -1,0 +1,82 @@
+{{#each erros}}
+    <div class="alert-overlay alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
+<div class="card container registro">
+    <div class="card-body">
+        <form action="" method="post"  class="flex_column-center">
+            <div class="div90 flex">
+                <div class="flex_column div50">
+                    <label for="nome" class="margin_top20">Nome:</label>
+                    <input type="text" name="nome" class="campo_curriculo margin_top" required>
+                </div>
+                <div class="flex_column div50 margin_left">
+                    <label for="sobrenome" class="margin_top20">Sobrenome:</label>
+                    <input type="text" name="sobrenome" class="campo_curriculo margin_top" required>
+                </div> 
+            </div>
+            
+            <div class="div90 flex">
+                <div class="flex_column div50">
+                    <label for="Curso" class="margin_top20">Selecione seu Curso:</label>
+                    <select name="Curso" id="Curso" class="campo_curriculo margin_top" required>
+                        <option value="">Selecione seu Curso</option>
+                        <option value="1">Administração</option>
+                        <option value="2">Processos Gerenciais</option>
+                        <option value="3">Gestão do Agronegócio</option>
+                        <option value="4">Recursos Humanos</option>
+                        <option value="5">Vendas</option>
+                        <option value="6">Arquitetura e Urbanismo</option>
+                        <option value="7">Engenharia Civil</option>
+                        <option value="8">Engenharia Mecânica</option>
+                        <option value="9">Engenharia Elétrica</option>
+                        <option value="10">Engenharia Química</option>
+                        <option value="11">Engenharia de Produção</option>
+                        <option value="12">Engenharia de Computação</option>
+                        <option value="13">Engenharia de Software</option>
+                        <option value="14">Engenharia Ambiental e Sanitária</option>
+                        <option value="15">Engenharia de Alimentos</option>
+                        <option value="16">Engenharia de Telecomunicações</option>
+                        <option value="17">Engenharia Biomédica</option>
+                        <option value="18">Tecnologia da Informação</option>
+                        <option value="19">Design Gráfico</option>
+                        <option value="20">Enfermagem</option>
+                        <option value="21">Fisioterapia</option>
+                        <option value="22">Psicologia</option>
+                        <option value="23">Pedagogia</option>
+                        <option value="24">Serviço Social</option>
+                        <option value="25">Logística</option>
+                        <option value="26">Jornalismo</option>
+                        <option value="27">Turismo e Hospitalidade</option>
+                        <option value="28">Marketing</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex_column div90">
+                <label for="email" class="margin_top20">Email:</label>
+                <input type="email" name="email" class="campo_curriculo margin_top" required>
+            </div>
+
+            <div class="div90 flex">
+                <div class="flex_column div50">
+                    <label for="senha" class="margin_top20">Crie sua Senha:</label>
+                    <input type="password" name="senha" class="campo_curriculo margin_top" required>
+                </div>
+                <div class="flex_column div50 margin_left">
+                    <label for="senha2" class="margin_top20">Repita sua senha:</label>
+                    <input type="password" name="senha2" class="campo_curriculo margin_top" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="margin_top30 div20 salvar_curriculo">Criar Conta</button>
+            <p class="margin_top20">OU</p>
+            <div class="margin_top10">
+                <a href="/empresas/registro">
+                    <p>Clique aqui para criar uma conta para sua empresa</p>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

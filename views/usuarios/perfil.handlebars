@@ -1,0 +1,67 @@
+<div class="flex">
+<!-- BLOCO DE PERFIL -->
+    <div class="perfil-foto-nome-curriculo">
+    <div class="perfil-foto-nome-curriculo-bloco">
+        <div class="foto-nome-curso">
+            <!-- Usando a condicional simples -->
+            <form id="uploadForm" action="/usuarios/uploadFoto" method="POST" enctype="multipart/form-data">
+                <label for="fotoUpload">
+                    {{#if user.foto_perfil}}
+                        <img id="foto-perfil" class="foto-perfil-icon" alt="Foto de perfil" src="/uploads/{{user.foto_perfil}}">
+                    {{else}}
+                        <img id="foto-perfil" class="foto-perfil-icon" alt="Foto de perfil" src="/img/foto_perfil.svg">
+                    {{/if}}
+                </label>
+                <input type="file" id="fotoUpload" name="foto" accept="image/*" style="display:none" onchange="document.getElementById('uploadForm').submit();">
+            </form>
+
+            <div class="texto_foto">
+                <div class="full-name">{{user.nome}} {{user.sobrenome}}</div>
+                <div class="curso">{{user.curso}}</div>
+            </div>
+        </div>
+        <div class="texto-atulizacurriculo">
+            <div class="texto-atulizacurriculo-bloco">
+                <div class="texto-atulize">
+                    <p>Não perca oportunidades!</p>
+                    <p>Deixe seu currículo sempre atualizado</p>
+                </div>
+                <a href="/usuarios/curriculo">
+                    <button class="button-atucurriculo">Atualizar currículo</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- BLOCO DE VAGAS RECOMENDADAS -->
+
+    <div class="vaga-recom">
+        <div class="bloco-vagarecom">
+
+            <div class="titulo-vagarecom">
+                <div class="vaga-recomendadas">Vagas Recentes</div>
+                <div class="separador-vagasrecom"></div>
+            </div>
+            {{#each vagas}}
+                <div class="vaga-seperada">
+                    <div class="vaga" onclick="irparavaga()">
+                        <div class="foto-empresa"><img src="" alt=""></div>
+                        <div>
+                            <p class="nome-vaga">{{vagas.titulo}}</p>
+                            <p class="nome-empresa">{{vagas.empresa}}</p>
+                            <div class="curso-base-parent">
+                                <p class="curso-base">{{vagas.curso}}</p>
+                                <p class="modalidade">{{vagas.modalidade}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separador-vagasrecom"></div>
+                </div>
+            {{/each}}
+
+            <a href="/vagas"><button class="button-vermais">Ver mais vagas</button></a>
+        </div>
+    </div>
+</div>

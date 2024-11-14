@@ -1,0 +1,141 @@
+<head>
+    <link rel="stylesheet" href="/css/curriculo.css">
+</head>
+
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container">
+        <h2 class="fill txt_center margin_top20">Visualizar Informações de {{usuario.nome}}</h2>
+        <form action="/empresas/info/save" method="post">
+            <div class="card-body flex_column">
+                <div class="dados">
+                    <div class="secao_texto">
+                        <h3>Sobre a Empresa:</h3>
+                    </div>
+                    <div class="secao_campos">
+                        <ol class="list_flex fill">
+                            <li class="width82">
+                                <div class="Form_Title">Nome:</div>
+                                <input disabled class="campo_curriculo fill" type="text" name="nome" value="{{usuario.nome}}">
+                            </li>
+                            <li class="flex_column width40">
+                                <label for="Departamento" class="margin_top20">Departamento:</label>
+                                <select disabled name="Departamento" class="campo_curriculo margin_top">
+                                    <option value="">Não selecionado</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Administração")}} selected {{/if}} value="Administração">Administração</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Agricultura")}} selected {{/if}} value="Agricultura">Agricultura</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Agronegócio")}} selected {{/if}} value="Agronegócio">Agronegócio</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Alimentação")}} selected {{/if}} value="Alimentação">Alimentação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Arquitetura e Urbanismo")}} selected {{/if}} value="Arquitetura e Urbanismo">Arquitetura e Urbanismo</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Arte e Design")}} selected {{/if}} value="Arte e Design">Arte e Design</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Assistência Social")}} selected {{/if}} value="Assistência Social">Assistência Social</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Automobilismo")}} selected {{/if}} value="Automobilismo">Automobilismo</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Aviação")}} selected {{/if}} value="Aviação">Aviação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Bancos e Finanças")}} selected {{/if}} value="Bancos e Finanças">Bancos e Finanças</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Biotecnologia")}} selected {{/if}} value="Biotecnologia">Biotecnologia</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Comércio")}} selected {{/if}} value="Comércio">Comércio</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Comunicação")}} selected {{/if}} value="Comunicação">Comunicação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Construção Civil")}} selected {{/if}} value="Construção Civil">Construção Civil</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Consultoria")}} selected {{/if}} value="Consultoria">Consultoria</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Educação")}} selected {{/if}} value="Educação">Educação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Energia")}} selected {{/if}} value="Energia">Energia</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia Civil")}} selected {{/if}} value="Engenharia Civil">Engenharia Civil</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia Elétrica")}} selected {{/if}} value="Engenharia Elétrica">Engenharia Elétrica</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia Mecânica")}} selected {{/if}} value="Engenharia Mecânica">Engenharia Mecânica</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia Química")}} selected {{/if}} value="Engenharia Química">Engenharia Química</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia de Computação")}} selected {{/if}} value="Engenharia de Computação">Engenharia de Computação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia de Software")}} selected {{/if}} value="Engenharia de Software">Engenharia de Software</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia de Produção")}} selected {{/if}} value="Engenharia de Produção">Engenharia de Produção</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Engenharia Ambiental e Sanitária")}} selected {{/if}} value="Engenharia Ambiental e Sanitária">Engenharia Ambiental e Sanitária</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Entretenimento")}} selected {{/if}} value="Entretenimento">Entretenimento</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Enfermagem")}} selected {{/if}} value="Enfermagem">Enfermagem</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Farmácia")}} selected {{/if}} value="Farmácia">Farmácia</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Esportes")}} selected {{/if}} value="Esportes">Esportes</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Finanças")}} selected {{/if}} value="Finanças">Finanças</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Gastronomia")}} selected {{/if}} value="Gastronomia">Gastronomia</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Recursos Humanos")}} selected {{/if}} value="Recursos Humanos">Recursos Humanos</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Hotelaria")}} selected {{/if}} value="Hotelaria">Hotelaria</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Imobiliária")}} selected {{/if}} value="Imobiliária">Imobiliária</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Informática")}} selected {{/if}} value="Informática">Informática</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Internet e Tecnologia")}} selected {{/if}} value="Internet e Tecnologia">Internet e Tecnologia</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Jurídico")}} selected {{/if}} value="Jurídico">Jurídico</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Logística")}} selected {{/if}} value="Logística">Logística</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Manufatura")}} selected {{/if}} value="Manufatura">Manufatura</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Marketing")}} selected {{/if}} value="Marketing">Marketing</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Medicina")}} selected {{/if}} value="Medicina">Medicina</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Meio Ambiente")}} selected {{/if}} value="Meio Ambiente">Meio Ambiente</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Mineração")}} selected {{/if}} value="Mineração">Mineração</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Mídia e Publicidade")}} selected {{/if}} value="Mídia e Publicidade">Mídia e Publicidade</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "ONGs")}} selected {{/if}} value="ONGs">ONGs</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Petróleo e Gás")}} selected {{/if}} value="Petróleo e Gás">Petróleo e Gás</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Pesquisa e Desenvolvimento")}} selected {{/if}} value="Pesquisa e Desenvolvimento">Pesquisa e Desenvolvimento</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Produção de Conteúdo")}} selected {{/if}} value="Produção de Conteúdo">Produção de Conteúdo</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Saúde")}} selected {{/if}} value="Saúde">Saúde</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Segurança")}} selected {{/if}} value="Segurança">Segurança</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Serviços")}} selected {{/if}} value="Serviços">Serviços</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Tecnologia da Informação")}} selected {{/if}} value="Tecnologia da Informação">Tecnologia da Informação</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Telecomunicações")}} selected {{/if}} value="Telecomunicações">Telecomunicações</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Transporte")}} selected {{/if}} value="Transporte">Transporte</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Turismo")}} selected {{/if}} value="Turismo">Turismo</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Varejo")}} selected {{/if}} value="Varejo">Varejo</option>
+                                    <option {{#if (eq usuario.empresa.0.departamento "Veterinária")}} selected {{/if}} value="Veterinária">Veterinária</option>
+                                </select>
+                            </li>
+                            <li class="flex_column width40 margin_left">
+                                <label for="num_func" class="margin_top20">Numero de Funcionarios</label>
+                                <select disabled class="campo_curriculo margin_top" name="num_func">
+                                    <option value="">Não selecionado</option>
+                                    <option value="1" {{#if (eq usuario.empresa.0.num_func 1)}} selected {{/if}}>1-10</option>
+                                    <option value="2" {{#if (eq usuario.empresa.0.num_func 2)}} selected {{/if}}>11-50</option>
+                                    <option value="3" {{#if (eq usuario.empresa.0.num_func 3)}} selected {{/if}}>51-100</option>
+                                    <option value="4" {{#if (eq usuario.empresa.0.num_func 4)}} selected {{/if}}>101-200</option>
+                                    <option value="5" {{#if (eq usuario.empresa.0.num_func 5)}} selected {{/if}}>201-500</option>
+                                    <option value="6" {{#if (eq usuario.empresa.0.num_func 6)}} selected {{/if}}>501-1000</option>
+                                    <option value="7" {{#if (eq usuario.empresa.0.num_func 7)}} selected {{/if}}>+1000</option>
+                                </select>
+                            </li>
+                            <li class="flex_column width82 margin_top30">
+                                <label for="descricao">Descrição:</label>
+                                <textarea disabled class="campo_curriculo width100 heigth140" name="descricao" id="descricao" placeholder="Coloque aqui uma breve descrição da sua empresa.">{{usuario.empresa.0.descricao}}</textarea>
+                            </li>
+                            <li class="flex_column width82 margin_top30">
+                                <label for="misao">Missão:</label>
+                                <textarea disabled class="campo_curriculo width100 heigth45" name="misao" id="misao" placeholder="Qual a missão dessa empresa?">{{usuario.empresa.0.missao}}</textarea>
+                            </li>
+                            <li class="flex_column width82 margin_top30">
+                                <label for="sustentavel">Objetivos Sustentáveis:</label>
+                                <textarea disabled class="campo_curriculo width100 heigth140" name="sustentavel" id="sustentavel" placeholder="Fale mais sobre os objetivos sustentáveis da empresa:">{{usuario.empresa.0.sustentaveis}}</textarea>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="dados">
+                    <div class="secao_texto">
+                        <h3>Contato:</h3>
+                    </div>
+                    <div class="secao_campos">
+                        <ol class="list_flex fill">
+                            <li class="width82">
+                                <div class="Form_Title">E-mail de contato:</div>
+                                <input disabled class="campo_curriculo fill" type="email" name="email" {{#if (eq usuario.empresa.0.email_contato "")}} value="{{usuario.email}}" {{else}} value="{{usuario.empresa.0.email_contato}} {{/if}}">
+                            </li>
+                            <li class="width60 margin_top30">
+                                <div class="Form_Title">Endereço:</div>
+                                <input disabled class="campo_curriculo fill" type="text" name="endereco" value="{{usuario.empresa.0.endereco}}">
+                            </li>
+                            <li class="width20 margin_top30 margin_left">
+                                <div class="Form_Title">Telefone:</div>
+                                <input disabled class="campo_curriculo fill" type="number" name="tel" value="{{usuario.empresa.0.tel}}">
+                            </li>
+                            <li class="width82 margin_top30">
+                                <div class="Form_Title">Site:</div>
+                                <input disabled class="campo_curriculo fill" type="text" name="site" value="{{usuario.empresa.0.site}}">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

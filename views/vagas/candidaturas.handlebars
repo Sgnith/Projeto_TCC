@@ -1,0 +1,64 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>Tem certeza que deseja excluir esta vaga?</p>
+        <button id="confirmDelete" class="button_add red">Sim, excluir</button>
+        <button id="cancelDelete" class="button_add">Cancelar</button>
+    </div>
+</div>
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="flex_column-center card container min_heigth width90">
+            <div  class="card container fill margin_top20 flex_row flex_column-SB">
+                <div class="card-body">
+                    <h1>Vaga:</h1><br>
+                    <div class="flex_row">
+                        <h2>{{vaga.titulo}}</h2>
+                        <h3 class="margin_left"> - {{vaga.candidaturas}} candidaturas</h3>
+                    </div>
+                    <p>{{{limitaDesc vaga.descricao}}}</p>
+                    <p class="margin_top10">Data: {{formatarData vaga.data}}</p>
+                </div>
+                <div class="flex_column-meio">
+                    <a href="/empresas/vagas/editar/{{vaga._id}}"><button class="button_add yell">Editar Vaga</button></a>
+                    <form action="/empresas/vagas/excluir" method="post">
+                        <input type="hidden" name="id" value="{{vaga._id}}">
+                        <button type="submit" class="button_add margin_top margin_bottom10 red delete-button">Encerrar/Excluir Vaga</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="margin_top30"></div>
+            <div class="card container fill margin_bottom20 margin_top20 flex_row flex_column-SB">
+                <div class="card-body">
+                    <h1>Candidaturas:</h1>
+                    {{#each candidatos}}
+                        <div class="card container fill margin_top20 flex_row flex_column-SB">
+                            <div class="card-body">
+                                <h5>Cadidato: {{usuario.nome}}</h5>
+                                <p>Curso: {{usuario.curso}}</p>
+                                {{#if curriculo.deficiencia}}
+                                    <p>Deficiencia: {{curriculo.deficiencia_txt}}</p>
+                                {{/if}}
+                                <p>Resumo: {{curriculo.resumo}}</p>
+                                <form action="/empresas/vagas/{{vaga.titulo}}/{{usuario.nome}}" method="post">
+                                    <input type="hidden" name="id_vaga" value="{{vaga._id}}">
+                                    <input type="hidden" name="id_user" value="{{usuario._id}}">
+                                    <button type="submit" class="button_add margin_top margin_bottom10">Ver Curriculo</button>
+                                </form>
+                            </div>
+                        </div>
+                    {{else}}
+                        <h3 class="margin_top20">Essa vaga ainda não teve candidaturas</h3>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/vaga.js"></script>

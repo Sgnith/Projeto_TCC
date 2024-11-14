@@ -1,0 +1,209 @@
+<link rel="stylesheet" href="/css/curriculo.css">
+<div class="page margin_paginas">
+    <h1 class="margin_left" style="margin-left: 16rem !important;!i;!;">VAGAS</h1>
+    {{#if (eq user.tipo 2)}}
+        <div class="flex_end fill">
+            <a href="/empresas/vagas">
+                <button type="button" class="button-logout">Suas Vagas</button>
+            </a>
+            <label for="icon_vagas"></label>
+        </div>
+    {{/if}}
+    <div class="flex fill">
+        <div class="card container">
+            <div class="card-body">
+                <form action="/vagas/filtrar" method="post">
+                    <div class="margin_top10">
+                        <label for="modalidade">Modalidade:</label>
+                        <select class="campo_input width90" name="modalidade" id="modalidade">
+                            <option value="" selected>Selecione a Modalidade</option>
+                            <option value="1">Presencial</option>
+                            <option value="2">Remoto</option>
+                            <option value="3">Híbrido</option>
+                        </select>
+                    </div>
+                    <div class="margin_top10">
+                        <label for="tipo">Tipo</label>
+                        <select class="campo_input width90" name="tipo" id="tipo">
+                            <option value="" selected>Selecione o Tipo</option>
+                            <option value="1">Estágio</option>
+                            <option value="2">Auxiliar</option>
+                            <option value="3">Assistente</option>
+                            <option value="4">Júnior</option>
+                            <option value="5">Pleno</option>
+                            <option value="6">Sênior</option>
+                            <option value="7">Coordenador</option>
+                            <option value="8">Gerente</option>
+                            <option value="9">Diretor</option>
+                        </select>
+                    </div>
+                    <div class="margin_top10">
+                        <label for="carga_horaria">Período:</label>
+                        <select class="campo_input width90" name="carga_horaria" id="carga_horaria">
+                            <option value="" selected>Selecione o Período</option>
+                            <option value="1">Período Matutino (Manhã)</option>
+                            <option value="2">Período Vespertino (Tarde)</option>
+                            <option value="3">Período Noturno</option>
+                            <option value="4">Período Integral</option>
+                            <option value="5">Horário Flexível</option>
+                        </select>
+                    </div>
+                    <div class="margin_top10">
+                        <label for="area">Área:</label>
+                        <select class="campo_input width90" name="area" id="area">
+                            <option value="" selected>Selecione a Area</option>
+                            <option value="1">Administração</option>
+                            <option value="2">Processos Gerenciais</option>
+                            <option value="3">Gestão do Agronegócio</option>
+                            <option value="4">Recursos Humanos</option>
+                            <option value="5">Vendas</option>
+                            <option value="6">Arquitetura e Urbanismo</option>
+                            <option value="7">Engenharia Civil</option>
+                            <option value="8">Engenharia Mecânica</option>
+                            <option value="9">Engenharia Elétrica</option>
+                            <option value="10">Engenharia Química</option>
+                            <option value="11">Engenharia de Produção</option>
+                            <option value="12">Engenharia de Computação</option>
+                            <option value="13">Engenharia de Software</option>
+                            <option value="14">Engenharia Ambiental e Sanitária</option>
+                            <option value="15">Engenharia de Alimentos</option>
+                            <option value="16">Engenharia de Telecomunicações</option>
+                            <option value="17">Engenharia Biomédica</option>
+                            <option value="18">Tecnologia da Informação</option>
+                            <option value="19">Design Gráfico</option>
+                            <option value="20">Enfermagem</option>
+                            <option value="21">Fisioterapia</option>
+                            <option value="22">Psicologia</option>
+                            <option value="23">Pedagogia</option>
+                            <option value="24">Serviço Social</option>
+                            <option value="25">Logística</option>
+                            <option value="26">Jornalismo</option>
+                            <option value="27">Turismo e Hospitalidade</option>
+                            <option value="28">Marketing</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="button_add margin_top20">Filtrar</button>
+                </form>
+                <div class="flex_column">
+                    {{#if fil}}
+                        <div>Filtros Ativos:</div>
+                        <div>
+                            {{#if filtro.modalidade}}
+                                <div class="habilidade_item">{{exibirModalidade filtro.modalidade}}</div>
+                            {{/if}}
+                            {{#if filtro.tipo}}
+                            <div class="habilidade_item">{{exibirTipo filtro.tipo}}</div>
+                            {{/if}}
+                            {{#if filtro.carga_horaria}}
+                            <div class="habilidade_item">{{exibirCargaHoraria filtro.carga_horaria}}</div>
+                            {{/if}}
+                            {{#if filtro.area}}
+                            <div class="habilidade_item">{{exibirArea filtro.area}}</div>
+                            {{/if}}
+                        </div>
+                        <form action="/vagas" method="get">
+                            <button class="button_add red" type="submit">Remover filtros</button>
+                        </form>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="card container fill margin_left">
+            <div class="card-body flex_center flex_column">
+                <div class="search-container">
+                    <form action="/vagas" method="get">
+                        <input type="text" name="search" id="search" placeholder="Buscar vagas..." required>
+                        <button type="submit">Buscar</button>
+                    </form>
+                    <div class="suggestions"></div>
+                </div>
+                {{#each vagas}}
+                <div  class="card container fill margin_top20 flex_row">
+                    <div class="width20">
+                        <div class="bloco_foto_vaga">
+                            <div class="foto_empresa">
+                                {{#if usuario.foto_perfil}}
+                                    <img src="/uploads/{{usuario.foto_perfil}}" alt="Company Profile Picture" onerror="this.onerror=null; this.src='/img/default-profile.png';">
+                                {{else}}
+                                    <img src="/img/foto_perfil.svg" alt="Default Profile Picture">
+                                {{/if}}
+                        </div>
+                        <strong class="empresa_vaga">{{empresa}}</strong>
+                        </div>
+                    </div>
+                    <div class="width80">
+                        <div>
+                            <h2 class="flex">
+                                {{exibirArea area}} - {{titulo}} 
+                                {{#if temEstrela}} 
+                                    <img class="margin_left" src="/img/star.svg" alt="">
+                                {{/if}}
+                            </h2>
+                            <p>{{localizacao}} - {{formatarData data}} - {{candidaturas}} candidaturas</p>
+                            <p>{{exibirModalidade modalidade}} - {{exibirCargaHoraria carga_horaria}} - {{exibirTipo tipo}}</p>
+                            <p>{{{limitaDesc2 descricao}}}</p>
+                        </div>
+                        <form action="/vagas/vaga_{{titulo}}" method="post">
+                            <input type="hidden" name="id" value="{{_id}}">
+                            <button class="margin_top20 button_add margin_bottom10">Ver mais</button>
+                        </form>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="pagination">
+                {{#if hasPreviousPage}}
+                    <a href="{{previousPage}}" class="page-link">&laquo; Anterior</a>
+                {{/if}}
+
+                <span class="page-info">
+                    Página {{currentPage}} de {{totalPages}}
+                </span>
+
+                {{#if hasNextPage}}
+                    <a href="{{nextPage}}" class="page-link">Próxima &raquo;</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.querySelector('input[name="search"]');
+    const suggestionsContainer = document.querySelector('.suggestions');
+    suggestionsContainer.classList.add('suggestions');
+    searchInput.parentNode.appendChild(suggestionsContainer);
+
+    searchInput.addEventListener('input', async function() {
+        const query = searchInput.value;
+
+        if (query.length > 0) {
+            const response = await fetch(`/vagas/autocomplete?q=${query}`);
+            const suggestions = await response.json();
+
+            suggestionsContainer.innerHTML = ''; 
+
+            suggestions.forEach(vaga => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.textContent = vaga.titulo; 
+                suggestionItem.classList.add('suggestion-item'); 
+
+                suggestionItem.addEventListener('click', function() {
+                    searchInput.value = suggestionItem.textContent; 
+                    suggestionsContainer.innerHTML = ''; 
+                });
+
+                suggestionsContainer.appendChild(suggestionItem);
+            });
+        } else {
+            suggestionsContainer.innerHTML = '';
+        }
+    });
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            suggestionsContainer.innerHTML = '';
+        }
+    });
+});
+</script>

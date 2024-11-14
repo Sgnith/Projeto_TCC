@@ -1,0 +1,108 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+{{/each}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cnpj = document.getElementById('Cnpj');
+        const Telefone  = document.getElementById('Telefone');
+
+        cnpj.addEventListener('input', () => {
+            if (cnpj.value.length > 14) {
+                cnpj.value = cnpj.value.slice(0, 14);
+            }
+        });
+
+        Telefone.addEventListener('input', () => {
+            if (Telefone.value.length > 11) {
+                Telefone.value = Telefone.value.slice(0, 11);
+            }
+        });
+    });
+</script>
+<div class="page margin_paginas">
+    <div class="flex fill">
+        <div class="card container registro width90">
+            <form action="/usuarios/modificarados/save" method="post" class="margin_top20 flex_column-center">
+                {{#if (eq usuario.tipo 2)}}
+                    <div class="flex_column div90">
+                        <label for="nome" class="margin_top20">Nome:</label>
+                        <input type="text" name="nome" class="campo_curriculo margin_top" value="{{usuario.nome}}">
+                    </div>
+                    <div class="div90 flex_column">
+                        <label for="email" class="margin_top20">E-mail:</label>
+                        <input type="email" name="email" class="campo_curriculo margin_top" value="{{usuario.email}}">
+                    </div>
+                    <div class="flex_column div90">
+                        <label for="Cnpj" class="margin_top20">Cnpj:</label>
+                        <input type="number" id="Cnpj" name="Cnpj" class="campo_curriculo margin_top" value="{{usuario.empresa.0.cnpj}}">
+                    </div>
+                    <div class="div90 flex">
+                        <div class="flex_column div50">
+                            <label for="senha" class="margin_top20">Nova Senha:</label>
+                            <input type="password" name="senha" class="campo_curriculo margin_top">
+                        </div>
+                        <div class="flex_column div50 margin_left">
+                            <label for="senha2" class="margin_top20">Repita a senha:</label>
+                            <input type="password" name="senha2" class="campo_curriculo margin_top">
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="div90 flex">
+                        <div class="flex_column div50">
+                            <label for="nome" class="margin_top20">Nome:</label>
+                            <input type="text" name="nome" class="campo_curriculo margin_top" value="{{usuario.nome}}">
+                        </div>
+                        <div class="flex_column div50 margin_left">
+                            <label for="sobrenome" class="margin_top20">Sobrenome:</label>
+                            <input type="text" name="sobrenome" class="campo_curriculo margin_top" value="{{usuario.sobrenome}}">
+                        </div> 
+                    </div>
+                    <div class="div90 flex">
+                        <div class="flex_column div50">
+                            <label for="email" class="margin_top20">E-mail:</label>
+                            <input class="campo_curriculo margin_top" type="email" name="email" value="{{usuario.email}}">
+                        </div>
+                        <div class="flex_column div50 margin_left">
+                            <label for="Curso" class="margin_top20">Curso:</label>
+                            <select name="Curso" id="Curso" class="campo_curriculo margin_top">
+                                <option value="1" {{#if (eq usuario.curso 1)}}selected{{/if}}>Administração</option>
+                                <option value="2" {{#if (eq usuario.curso 2)}}selected{{/if}}>Processos Gerenciais</option>
+                                <option value="3" {{#if (eq usuario.curso 3)}}selected{{/if}}>Gestão do Agronegócio</option>
+                                <option value="4" {{#if (eq usuario.curso 4)}}selected{{/if}}>Recursos Humanos</option>
+                                <option value="5" {{#if (eq usuario.curso 5)}}selected{{/if}}>Vendas</option>
+                                <option value="6" {{#if (eq usuario.curso 6)}}selected{{/if}}>Arquitetura e Urbanismo</option>
+                                <option value="7" {{#if (eq usuario.curso 7)}}selected{{/if}}>Engenharia Civil</option>
+                                <option value="8" {{#if (eq usuario.curso 8)}}selected{{/if}}>Engenharia Mecânica</option>
+                                <option value="9" {{#if (eq usuario.curso 9)}}selected{{/if}}>Engenharia Elétrica</option>
+                                <option value="10" {{#if (eq usuario.curso 10)}}selected{{/if}}>Engenharia Química</option>
+                                <option value="11" {{#if (eq usuario.curso 11)}}selected{{/if}}>Engenharia de Produção</option>
+                                <option value="12" {{#if (eq usuario.curso 12)}}selected{{/if}}>Engenharia de Computação</option>
+                                <option value="13" {{#if (eq usuario.curso 13)}}selected{{/if}}>Engenharia de Software</option>
+                                <option value="14" {{#if (eq usuario.curso 14)}}selected{{/if}}>Engenharia Ambiental e Sanitária</option>
+                                <option value="15" {{#if (eq usuario.curso 15)}}selected{{/if}}>Engenharia de Alimentos</option>
+                                <option value="16" {{#if (eq usuario.curso 16)}}selected{{/if}}>Engenharia de Telecomunicações</option>
+                                <option value="17" {{#if (eq usuario.curso 17)}}selected{{/if}}>Engenharia Biomédica</option>
+                                <option value="18" {{#if (eq usuario.curso 18)}}selected{{/if}}>Tecnologia da Informação</option>
+                                <option value="19" {{#if (eq usuario.curso 19)}}selected{{/if}}>Design Gráfico</option>
+                                <option value="20" {{#if (eq usuario.curso 20)}}selected{{/if}}>Enfermagem</option>
+                                <option value="21" {{#if (eq usuario.curso 21)}}selected{{/if}}>Fisioterapia</option>
+                                <option value="22" {{#if (eq usuario.curso 22)}}selected{{/if}}>Psicologia</option>
+                                <option value="23" {{#if (eq usuario.curso 23)}}selected{{/if}}>Pedagogia</option>
+                                <option value="24" {{#if (eq usuario.curso 24)}}selected{{/if}}>Serviço Social</option>
+                                <option value="25" {{#if (eq usuario.curso 25)}}selected{{/if}}>Logística</option>
+                                <option value="26" {{#if (eq usuario.curso 26)}}selected{{/if}}>Jornalismo</option>
+                                <option value="27" {{#if (eq usuario.curso 27)}}selected{{/if}}>Turismo e Hospitalidade</option>
+                                <option value="28" {{#if (eq usuario.curso 28)}}selected{{/if}}>Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                {{/if}}
+            <input type="hidden" name="user_id" value="{{usuario._id}}">
+            <input type="hidden" name="user_tipo" value="{{usuario.tipo}}">
+            <input type="hidden" name="user_usuario.empresa.0" value="{{usuario.empresa}}">
+            <button type="submit" class="margin_top30 margin_bottom20 div20 salvar_curriculo">Salvar Dados</button>
+            </form>
+        </div>
+    </div>
+</div>

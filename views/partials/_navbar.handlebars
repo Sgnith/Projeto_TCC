@@ -1,0 +1,82 @@
+<div class="menu_geral">
+  
+    <!-- MENU GERAL -->
+    
+    <a href="/">
+        <div class="logo_">
+            <img class="logo_icon" alt="" src="/img/logo_.svg">
+            <label for="logo_icon">Oportunize.me</label>
+        </div>
+    </a>
+    <div class="menu">
+
+      <!-- HOME -->
+      <div class="button_chat">
+          <a href="/">
+              <img class="icon-inicio" alt="" src="/img/icon-inicio.svg">
+        <div class="button_icon"></div>
+          </a>
+          <label for="icon-inicio">Inicio</label>
+      </div>
+
+      <!-- CONTATO -->
+      <div class="button_contato">
+          <a href="#contato">
+              <img class="icon_contato" alt="" src="/img/icon-contato.svg">
+              <button type="button" class="button_icon"></button>
+          </a>
+          <label for="icon_contato">Contato</label>
+      </div>
+
+      {{!-- <!-- GUIA DE USUARIO -->
+      <div class="button_guia">
+          <a href="guia_de_usuario.html">
+              <img class="icon_guia" alt="" src="/img/icon-guia.svg">
+              <button type="button" class="button_icon"></button>
+          </a>
+          <label for="icon_guia">Guia</label>
+      </div> --}}
+
+      <!-- VAGAS -->
+      <div class="button_vagas">
+          <a href="/vagas">
+              <img class="icon_vagas" alt="" src="/img/icon-vagas.svg">
+              <button type="button" class="button_icon"></button>
+          </a>
+          <label for="icon_vagas">Vagas</label>
+      </div>
+
+      <!-- SEPARADOR -->
+      <div class="separador"></div>
+      {{#if user}}
+      <!-- MENU SUSPENSO CLOSE -->
+      <div class="menu-suspenso-close">
+        <div class="button-menususpenso">
+            <div class="button-menususpenso-bloco flex" id="menuButton" onclick="toggleMenu()">
+                <div class="ol-f-name no-select" id="menuButton">Olá, {{limitaNome user.nome}}</div>
+                <img id="menuButton" class="button-menususpenso-item" alt="" src="/img/seta_close.svg">
+            </div>
+            <div id="dropdownMenu" class="dropdown-content">
+                <a class="margin_top20" href="/usuarios/modificardados">Modificar Dados</a>
+                {{#if (eq user.tipo 0)}}
+                    <a href="/usuarios/curriculo/{{user._id}}">Curriculo</a>
+                {{else}}
+                    <a href="/usuarios/vizualizar">Ver Usuarios</a>
+                    <a href="/empresas/vagas">Minhas vagas</a>
+                {{/if}}
+                <a href="/usuarios/logout">Sair</a>
+            </div>
+        </div>
+    </div>
+    {{else}}
+       <!-- LOGIN E REGISTRO -->
+        <a href="/usuarios/registro"><button class="button_register">Cadastre-se</button></a>
+        <a href="/usuarios/login"><button class="button_login">Entrar</button></a>
+    {{/if}}
+    
+    </div>
+</div>
+
+
+<script src="/js/script.js"></script>
+    
