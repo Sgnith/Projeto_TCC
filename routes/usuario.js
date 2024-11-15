@@ -104,7 +104,7 @@ let transporter = nodemailer.createTransport({
                     const token = jwt.sign({ id: novoUsuario._id }, 'seusupersegredo', { expiresIn: '1d' });
     
                     // Criar o link de verificação
-                    const linkDeVerificacao = `http://localhost:3000/usuarios/verify/${token}`;
+                    const linkDeVerificacao = `http://15.228.145.66:3000/usuarios/verify/${token}`;
     
                     // Enviar o e-mail
                     const mailOptions = {
