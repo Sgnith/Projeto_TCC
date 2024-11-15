@@ -93,7 +93,7 @@ let transporter = nodemailer.createTransport({
             await novoUsuario.save();
     
             const token = jwt.sign({ id: novoUsuario._id }, 'seusupersegredo', { expiresIn: '1d' });
-            const linkDeVerificacao = `http://localhost:3000/usuarios/verify/${token}`;
+            const linkDeVerificacao = `http://15.228.145.66:3000/usuarios/verify/${token}`;
     
             const mailOptions = {
                 from: '4kaka5mon0@gmail.com',
