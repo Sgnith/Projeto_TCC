@@ -15,6 +15,7 @@ const {eEmpresa} = require('../helpers/eempresa')
 const {nlogged} = require('../helpers/nlogged')
 const {logged} = require('../helpers/logged')
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 // Configurar o transporte do Nodemailer
 let transporter = nodemailer.createTransport({
