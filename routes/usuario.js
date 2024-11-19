@@ -76,6 +76,15 @@ let transporter = nodemailer.createTransport({
         if (req.body.senha != req.body.senha2) {
             erros.push({ texto: 'As senhas são diferentes' });
         }
+        const senha = req.body.senha;
+        const sequenciaRegex = /(\d|[a-zA-Z])\1+/;
+        if (sequenciaRegex.test(senha)) {
+            erros.push({ texto: 'A senha não pode ser uma sequência de caracteres consecutivos' });
+        }
+        const iguaisRegex = /^(\w)\1*$/;
+        if (iguaisRegex.test(senha)) {
+            erros.push({ texto: 'A senha não pode ter todos os caracteres iguais' });
+        }
     
         if (erros.length > 0) {
             res.render('usuarios/registro', { erros: erros });
